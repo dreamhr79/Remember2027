@@ -1,0 +1,6 @@
+{
+  "summary":  "Plan implementacije integracije Google Kalendara i interaktivne trajne obavijesti s dnevnim rasporedom zadataka i dogadaja.\n- Integracija Android Calendar Providera za siguran pristup i odabir kalendara\n- Ispravak trajnih obavijesti (setOngoing) za zadatke i podsjetnike\n- Nova interaktivna trajna obavijest s navigacijom po danima (danas, sutra, prekosutra) i 5-dnevnim pregledom\n- Mogucnost oznacavanja zadataka rijesenima izravno iz obavijesti",
+  "updatedAt":  "2026-10-04T16:58:33.106519285Z",
+  "requestFeedback":  true,
+  "userFacing":  true
+}

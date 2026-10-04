@@ -163,6 +163,7 @@ enum class SettingsSectionKey(
 ) {
     Appearance("appearance", "palette", R.string.settings_section_appearance),
     Notifications("notifications", "notifications", R.string.settings_notifications_section),
+    Calendar("calendar", "calendar_month", R.string.settings_calendar_agenda_title),
     Defaults("defaults", "tune", R.string.settings_defaults_section),
 
     // FilePipe files the same toggle under its broader "Touch & Sound" section. Divergent heading
@@ -274,6 +275,9 @@ fun SettingsRoute(
     val rememberUpdateState: RememberUpdateState = settingsDependencies.rememberUpdateState()
     val updateCheckWorkScheduler = settingsDependencies.updateCheckWorkScheduler()
     val appReviewLauncher = settingsDependencies.appReviewLauncher()
+    val calendarPrefs = settingsDependencies.calendarPrefs()
+    val calendarRepository = settingsDependencies.calendarRepository()
+    val agendaNotificationManager = settingsDependencies.agendaNotificationManager()
     val scope = rememberCoroutineScope()
 
     val devModeEnabled by devModePrefs.isEnabled.collectAsStateWithLifecycle(initialValue = false)
@@ -792,6 +796,26 @@ fun SettingsRoute(
                                     )
                                 }
                             } // notifications Column
+                        }
+                    }
+
+                    if (includeSettingsSection(SettingsSectionKey.Calendar)) {
+                        item(key = "calendar") {
+                            SettingsExpandableSection(
+                                sectionKey = SettingsSectionKey.Calendar.routeKey,
+                                materialSymbolName = SettingsSectionKey.Calendar.iconName,
+                                title = stringResource(SettingsSectionKey.Calendar.titleRes),
+                                collapsedSectionKeys = visibleCollapsedSectionKeys,
+                                onCollapsedSectionKeysChange = ::updateCollapsedSettingsSectionKeys,
+                                showHeader = showSectionHeaders,
+                            ) {
+                                CalendarSettingsSection(
+                                    calendarPrefs = calendarPrefs,
+                                    calendarRepository = calendarRepository,
+                                    agendaNotificationManager = agendaNotificationManager,
+                                    scope = scope,
+                                )
+                            }
                         }
                     }
 

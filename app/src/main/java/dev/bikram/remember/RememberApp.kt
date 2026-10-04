@@ -77,6 +77,8 @@ class RememberApp :
 
     @Inject lateinit var appLockSession: AppLockSession
 
+    @Inject lateinit var agendaNotificationManager: dev.bikram.remember.calendar.AgendaNotificationManager
+
     @ApplicationScope @Inject
     lateinit var applicationScope: CoroutineScope
 
@@ -102,10 +104,12 @@ class RememberApp :
             refreshWidgets = notesWidgetUpdater::refreshAll,
             refreshSummary = noteRepository::refreshReminderSummaryNotification,
             refreshActiveNotifications = noteRepository::refreshActiveReminderNotifications,
+            refreshAgenda = { agendaNotificationManager.updateNotification() },
         )
         observeQuickCapturePref()
         backupExportCoordinator.start()
         applicationScope.launch {
+            agendaNotificationManager.updateNotification()
             RememberBackupWork.updateSchedule(this@RememberApp, backupPrefs.snapshot())
             updateCheckWorkScheduler.syncFromPreferences()
             runCatching {

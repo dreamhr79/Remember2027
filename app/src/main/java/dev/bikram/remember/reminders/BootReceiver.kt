@@ -20,6 +20,8 @@ class BootReceiver : BroadcastReceiver() {
 
     @Inject lateinit var quickCapturePrefs: QuickCapturePrefs
 
+    @Inject lateinit var agendaNotificationManager: dev.bikram.remember.calendar.AgendaNotificationManager
+
     @ApplicationScope @Inject
     lateinit var applicationScope: CoroutineScope
 
@@ -55,6 +57,7 @@ class BootReceiver : BroadcastReceiver() {
                 if (quickCapturePrefs.snapshot().enabled) {
                     QuickCaptureNotifier.show(context)
                 }
+                agendaNotificationManager.updateNotification()
             } finally {
                 pendingResult.finish()
             }

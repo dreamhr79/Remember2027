@@ -49,6 +49,12 @@ interface SettingsDependenciesEntryPoint {
 
     fun viewOptionsPrefs(): ViewOptionsPrefs
 
+    fun calendarPrefs(): dev.bikram.remember.calendar.CalendarPrefs
+
+    fun calendarRepository(): dev.bikram.remember.calendar.CalendarRepository
+
+    fun agendaNotificationManager(): dev.bikram.remember.calendar.AgendaNotificationManager
+
     fun noteRepository(): NoteRepository
 
     fun updatePrefs(): UpdatePrefs

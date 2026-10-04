@@ -132,12 +132,17 @@ internal fun SettingsToggleRow(
                 .padding(horizontal = 16.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        RememberMaterialRoundedSymbol(
-            name = materialSymbolName,
-            size = 24.dp,
-            tint = MaterialTheme.colorScheme.onSurfaceVariant,
-            weight = FontWeight.Medium,
-        )
+        Box(
+            modifier = Modifier.size(24.dp),
+            contentAlignment = Alignment.Center,
+        ) {
+            RememberMaterialRoundedSymbol(
+                name = materialSymbolName,
+                size = 24.dp,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                weight = FontWeight.Medium,
+            )
+        }
         Spacer(Modifier.width(16.dp))
         Column(
             modifier = Modifier.weight(1f),

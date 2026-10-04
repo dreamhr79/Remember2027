@@ -30,6 +30,7 @@ internal fun CoroutineScope.observeNoteRefreshes(
     refreshWidgets: suspend () -> Unit,
     refreshSummary: suspend () -> Unit,
     refreshActiveNotifications: suspend () -> Unit,
+    refreshAgenda: (suspend () -> Unit)? = null,
     computationDispatcher: CoroutineDispatcher = Dispatchers.Default,
 ): Job {
     return launch {
@@ -47,7 +48,10 @@ internal fun CoroutineScope.observeNoteRefreshes(
             launch {
                 // Include the first snapshot: a write may precede observer startup.
                 // Keep the latest change if a widget update is already in progress.
-                notes.conflate().collect { refreshWidgets() }
+                notes.conflate().collect {
+                    refreshWidgets()
+                    refreshAgenda?.invoke()
+                }
             }
             launch {
                 val summaryNotes =

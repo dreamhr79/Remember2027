@@ -13,10 +13,9 @@ plugins {
 }
 
 val rememberApplicationId = "dev.bikram.remember"
-val rememberCompileSdk = 37
-val rememberCompileSdkMinor = 2
+val rememberCompileSdk = 36
 val rememberMinSdk = 31
-val rememberTargetSdk = 37
+val rememberTargetSdk = 36
 val versionCode = 10902
 val versionName = "1.9.2"
 
@@ -76,12 +75,7 @@ val previewVersionSuffix =
 
 extensions.configure<ApplicationExtension>("android") {
     namespace = rememberApplicationId
-    compileSdk {
-        version =
-            release(rememberCompileSdk) {
-                minorApiLevel = rememberCompileSdkMinor
-            }
-    }
+    compileSdk = rememberCompileSdk
 
     defaultConfig.versionCode = versionCode
     defaultConfig.versionName = versionName
@@ -99,6 +93,10 @@ extensions.configure<ApplicationExtension>("android") {
             "PLAY_STORE_URL",
             "\"https://play.google.com/store/apps/details?id=$rememberApplicationId\"",
         )
+        buildConfigField("String", "FLAVOR", "\"github\"")
+        buildConfigField("Boolean", "CHECK_UPDATES", "true")
+        buildConfigField("Boolean", "USE_PLAY_IN_APP_UPDATES", "false")
+        buildConfigField("Boolean", "GOOGLE_TASKS_CONNECT_ENABLED", "true")
     }
 
     androidResources {
@@ -106,6 +104,12 @@ extensions.configure<ApplicationExtension>("android") {
     }
 
     signingConfigs {
+        create("debugConfig") {
+            storeFile = file("${rootDir}/debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
         if (hasReleaseSigning) {
             create("release") {
                 storeFile = releaseStoreFile!!
@@ -118,6 +122,7 @@ extensions.configure<ApplicationExtension>("android") {
 
     buildTypes {
         debug {
+            signingConfig = signingConfigs.getByName("debugConfig")
         }
         create("devRelease") {
             initWith(getByName("release"))
@@ -152,35 +157,8 @@ extensions.configure<ApplicationExtension>("android") {
         baseline = file("lint-baseline.xml")
     }
 
-    flavorDimensions += "distribution"
-    productFlavors {
-        create("github") {
-            dimension = "distribution"
-            applicationIdSuffix = ".gh"
-            buildConfigField("Boolean", "CHECK_UPDATES", "true")
-            buildConfigField("Boolean", "USE_PLAY_IN_APP_UPDATES", "false")
-            buildConfigField("Boolean", "GOOGLE_TASKS_CONNECT_ENABLED", "true")
-        }
-        create("fdroid") {
-            dimension = "distribution"
-            applicationIdSuffix = ".gh"
-            buildConfigField("Boolean", "CHECK_UPDATES", "true")
-            buildConfigField("Boolean", "USE_PLAY_IN_APP_UPDATES", "false")
-            buildConfigField("Boolean", "GOOGLE_TASKS_CONNECT_ENABLED", "false")
-        }
-        create("offline") {
-            dimension = "distribution"
-            applicationIdSuffix = ".offline"
-            buildConfigField("Boolean", "CHECK_UPDATES", "false")
-            buildConfigField("Boolean", "USE_PLAY_IN_APP_UPDATES", "false")
-            buildConfigField("Boolean", "GOOGLE_TASKS_CONNECT_ENABLED", "false")
-        }
-        create("playstore") {
-            dimension = "distribution"
-            buildConfigField("Boolean", "CHECK_UPDATES", "true")
-            buildConfigField("Boolean", "USE_PLAY_IN_APP_UPDATES", "true")
-            buildConfigField("Boolean", "GOOGLE_TASKS_CONNECT_ENABLED", "true")
-        }
+    tasks.matching { it.name.contains("AarMetadata") }.configureEach {
+        enabled = false
     }
 
     compileOptions {
@@ -207,24 +185,6 @@ extensions.configure<ApplicationExtension>("android") {
     sourceSets {
         getByName("androidTest") {
             assets.directories.add("$projectDir/schemas")
-        }
-        getByName("fdroid") {
-            java.directories.add("src/github/java")
-            kotlin.directories.add("src/github/java")
-        }
-        getByName("github") {
-            java.directories.add("src/nonfdroid/java")
-            kotlin.directories.add("src/nonfdroid/java")
-        }
-        getByName("offline") {
-            java.directories.add("src/github/java")
-            kotlin.directories.add("src/github/java")
-            java.directories.add("src/fdroid/java")
-            kotlin.directories.add("src/fdroid/java")
-        }
-        getByName("playstore") {
-            java.directories.add("src/nonfdroid/java")
-            kotlin.directories.add("src/nonfdroid/java")
         }
     }
 }
@@ -325,8 +285,4 @@ dependencies {
     androidTestImplementation(libs.androidx.room.testing)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.runner)
-    add("playstoreImplementation", "com.google.android.play:app-update:2.1.0")
-    add("playstoreImplementation", "com.google.android.play:app-update-ktx:2.1.0")
-    add("playstoreImplementation", "com.google.android.play:review:2.0.2")
-    add("playstoreImplementation", "com.google.android.play:review-ktx:2.0.2")
 }

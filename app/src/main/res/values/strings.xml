@@ -1311,4 +1311,33 @@
     <string name="diagnostics_value_configured_filesystem_path">configured: filesystem path</string>
     <string name="diagnostics_value_configured_reference_format">configured: %1$s reference</string>
 
+    <!-- Calendar & Daily Agenda Notification -->
+    <string name="settings_calendar_agenda_title">Kalendar i dnevni raspored</string>
+    <string name="settings_calendar_agenda_desc">Prikaz Google Kalendara i zadataka u trajnoj obavijesti</string>
+    <string name="settings_agenda_notification_toggle">Trajna obavijest rasporeda</string>
+    <string name="settings_agenda_notification_toggle_desc">Prikazuje današnje zadatke i događaje s navigacijom po danima u traci obavijesti</string>
+    <string name="settings_calendar_permission_required">Potrebno dopuštenje za kalendar</string>
+    <string name="settings_calendar_permission_desc">Dozvolite pristup kalendaru kako bi Remember mogao prikazati događaje s Google računa</string>
+    <string name="settings_grant_permission">Dozvoli pristup</string>
+    <string name="settings_select_calendars">Odaberite kalendare</string>
+    <string name="settings_select_calendars_desc">Odaberite iz kojih Google kalendara želite čitati događaje</string>
+    <string name="settings_no_calendars_found">Nije pronađen nijedan kalendar na uređaju.</string>
+    <string name="settings_agenda_5day_summary">Sažetak za sljedećih 5 dana</string>
+    <string name="settings_agenda_5day_summary_desc">Prikazuje ukupan broj obveza u dnu obavijesti</string>
+    <string name="agenda_channel_name">Dnevni raspored</string>
+    <string name="agenda_channel_desc">Trajna obavijest s pregledom događaja iz kalendara i zadataka</string>
+    <string name="agenda_notification_today">Danas</string>
+    <string name="agenda_notification_tomorrow">Sutra</string>
+    <string name="agenda_notification_day_after">Prekosutra</string>
+    <string name="agenda_notification_yesterday">Jučer</string>
+    <string name="agenda_notification_prev_day">◀ Prethodni</string>
+    <string name="agenda_notification_next_day">Sljedeći ▶</string>
+    <string name="agenda_notification_action_today">Danas</string>
+    <string name="agenda_notification_complete_task">✓ Riješi zadatak</string>
+    <string name="agenda_no_events_or_tasks">Nema zakazanih događaja ni zadataka za ovaj dan.</string>
+    <string name="agenda_5day_summary_format">Sljedećih 5 dana: %1$d obveza (%2$d događaja, %3$d zadataka)</string>
+    <string name="agenda_events_count_format">%1$d događaja</string>
+    <string name="agenda_tasks_count_format">%1$d zadataka</string>
+    <string name="agenda_all_day_prefix">Cijeli dan</string>
+
 </resources>

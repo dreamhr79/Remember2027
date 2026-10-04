@@ -16,10 +16,7 @@ dependencies {
     // Google account picker + OAuth token mint for Google Tasks import.
     // play-services-auth provides Identity Services (modern picker + Authorization API).
     // androidx.credentials provides clearCredentialState() for explicit Disconnect cleanup.
-    add("githubImplementation", "com.google.android.gms:play-services-auth:$playServicesAuthVersion")
-    add("githubImplementation", "androidx.credentials:credentials:$androidxCredentialsVersion")
-    add("githubImplementation", "androidx.credentials:credentials-play-services-auth:$androidxCredentialsVersion")
-    add("playstoreImplementation", "com.google.android.gms:play-services-auth:$playServicesAuthVersion")
-    add("playstoreImplementation", "androidx.credentials:credentials:$androidxCredentialsVersion")
-    add("playstoreImplementation", "androidx.credentials:credentials-play-services-auth:$androidxCredentialsVersion")
+    add("implementation", "com.google.android.gms:play-services-auth:$playServicesAuthVersion")
+    add("implementation", "androidx.credentials:credentials:$androidxCredentialsVersion")
+    add("implementation", "androidx.credentials:credentials-play-services-auth:$androidxCredentialsVersion")
 }

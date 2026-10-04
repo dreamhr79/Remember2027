@@ -144,8 +144,8 @@ class ReminderReceiver : BroadcastReceiver() {
                     .setSilent(silent)
                     .setContentIntent(openNotePendingIntent(context, note.id))
                     .setDeleteIntent(dismissPendingIntent(context, note.id, reminderIndex).takeIf { keepUntilDone })
-                    .setOngoing(false)
-                    .setAutoCancel(false)
+                    .setOngoing(keepUntilDone)
+                    .setAutoCancel(!keepUntilDone)
                     .setOnlyAlertOnce(onlyAlertOnce)
 
             if (collapsedSummary.isNotBlank()) {
